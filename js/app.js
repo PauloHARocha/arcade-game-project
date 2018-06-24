@@ -12,7 +12,7 @@ class Enemy {
         this.y = this.initPosition();
         this.speed = this.initSpeed();
         this.sprite = 'images/enemy-bug.png';
-    };
+    }
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt){
@@ -22,22 +22,22 @@ class Enemy {
         this.x += Math.floor(this.speed*dt);
         if (this.x > ctx.canvas.width)
             this.reset();
-    };
+    }
 
     // Draw the enemy on the screen, required method for game
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    };
+    }
 
     initSpeed(){
         let velocity = [200, 300, 400];//The speeds the bug can have
-        return velocity[Math.floor(Math.random() * 3)]
-    };
+        return velocity[Math.floor(Math.random() * 3)];
+    }
 
     initPosition(){
         let position = [51, 134, 217];//The initial lanes
-        return position[Math.floor(Math.random() * 3)]
-    };
+        return position[Math.floor(Math.random() * 3)];
+    }
 
     reset(){//Initialize the bug on a new lane with a new speed
         this.x = this.initialX;
@@ -45,7 +45,7 @@ class Enemy {
         this.speed = this.initSpeed();
     }
 
-};
+}
 
 
 // Now write your own player class
@@ -68,7 +68,7 @@ class Player {
         this.score = 0;
         this.lives = 3;
         this.timer = true;
-    };
+    }
 
     init(colision){//Player comes back to inital position
         this.x = this.initialX;
@@ -77,7 +77,7 @@ class Player {
         if(colision){//If was a colision with a bug the player lose a live
             this.lives -= 1;
             if(!this.lives){//restart the game
-                this.lives = 3
+                this.lives = 3;
                 this.score = 0;
                 this.timer = false; //used to restart the clock on engine.js
             }
@@ -86,7 +86,7 @@ class Player {
             this.reachWater = false;
             this.score += 100;
         }
-    };
+    }
 
     update(){
         if (this.reachWater){//If reaches the water goes back to inital position
@@ -96,14 +96,14 @@ class Player {
             this.x = this.nextMove[0];
             this.y = this.nextMove[1];
         }
-    };
+    }
 
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    };
+    }
 
     handleInput(key){
-        if(key != undefined){
+        if(key !== undefined){
             var movements = {
                 'left': [-101, 0],
                 'up': [0, -83],
@@ -115,21 +115,19 @@ class Player {
                 up: 51,
                 right: ctx.canvas.width - 1,
                 down: 383
-            }//Logic to make sure the player dont acess a position outside the game board
-            if (this.x + movements[key][0] <= borders.right 
-                && this.x + movements[key][0] >= borders.left)
+            };//Logic to make sure the player dont acess a position outside the game board
+            if (this.x + movements[key][0] <= borders.right && this.x + movements[key][0] >= borders.left)
                 this.nextMove[0] += movements[key][0];
             // Logic to verify if the player reach the water
             if (this.y + movements[key][1] < borders.up)
                 this.reachWater = true; 
         
-            if (this.y + movements[key][1] <= borders.down 
-                && this.y + movements[key][1] >= borders.up)
+            if (this.y + movements[key][1] <= borders.down && this.y + movements[key][1] >= borders.up)
                 this.nextMove[1] += movements[key][1];
             
         }
     }
-};
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
