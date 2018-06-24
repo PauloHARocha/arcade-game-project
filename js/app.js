@@ -7,7 +7,7 @@ class Enemy {
     // a helper we've provided to easily load images
     
     constructor(){
-        this.initialX = 0;
+        this.initialX = -80;
         this.x = this.initialX;
         this.y = this.initPosition();
         this.speed = this.initSpeed();
